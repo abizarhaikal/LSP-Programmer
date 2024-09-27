@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph_user"
+    app:startDestination="@id/userMenuFragment">
+
+
+    <fragment
+        android:id="@+id/strukFragment"
+        android:name="com.example.lspprogrammer.ui.user.ui.StrukFragment"
+        android:label="fragment_struk"
+        tools:layout="@layout/fragment_struk" />
+    <fragment
+        android:id="@+id/userMenuFragment"
+        android:name="com.example.lspprogrammer.ui.user.ui.UserMenuFragment"
+        android:label="fragment_user_menu"
+        tools:layout="@layout/fragment_user_menu" />
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.example.lspprogrammer.ui.user.ui.ProfileFragment"
+        android:label="fragment_profile"
+        tools:layout="@layout/fragment_profile" />
+</navigation>

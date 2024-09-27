@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/addMenuFragment"
+    tools:context=".ui.administrator.ui.AddMenuFragment">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/ivImageDetail"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:scaleType="centerCrop"
+            app:layout_constraintBottom_toTopOf="@+id/guideline_horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:src="@tools:sample/avatars" />
+
+        <TextView
+            android:id="@+id/tvTitleMenu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="16dp"
+            android:fontFamily="@font/montserrat_semibold"
+            android:text="Nama Menu : "
+            android:textSize="18sp"
+            app:layout_constraintBottom_toTopOf="@+id/et_namaMenu"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/ivImageDetail" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/et_namaMenu"
+            style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="32dp"
+            android:hint="Nama Menu"
+            app:endIconMode="clear_text"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvTitleMenu">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edt_namaMenu"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="text" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView
+            android:id="@+id/tvHarga"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="16dp"
+            android:fontFamily="@font/montserrat_semibold"
+            android:text="Harga Menu : "
+            android:textSize="18sp"
+            app:layout_constraintBottom_toTopOf="@+id/et_hargaMenu"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/et_namaMenu" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/et_hargaMenu"
+            style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="32dp"
+            android:hint="Harga Menu"
+            app:endIconMode="clear_text"
+            app:layout_constraintEnd_toEndOf="@+id/guideline_vertical"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvHarga">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edt_hargaMenu"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="number" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView
+            android:id="@+id/tvStok"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="16dp"
+            android:fontFamily="@font/montserrat_semibold"
+            android:text="Stok Menu : "
+            android:textSize="18sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/et_hargaMenu" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/et_stokMenu"
+            style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="32dp"
+            android:hint="Stok Menu"
+            app:endIconMode="clear_text"
+            app:layout_constraintEnd_toEndOf="@+id/guideline_vertical"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvStok">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edt_stokMenu"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="number" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView
+            android:id="@+id/tv_kategoriMenu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="16dp"
+            android:text="Kategori Menu : "
+            android:textSize="18sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/et_stokMenu" />
+
+        <androidx.appcompat.widget.AppCompatSpinner
+            android:id="@+id/spinner_roleMenu"
+            style="@style/Widget.AppCompat.Light.Spinner.DropDown.ActionBar"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="32dp"
+            android:background="@drawable/spinner_background"
+            android:entries="@array/menu_options"
+            android:padding="18dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/btnTambah"
+            app:layout_constraintTop_toBottomOf="@+id/tv_kategoriMenu" />
+
+        <Button
+            android:id="@+id/btnCamera"
+            style="@style/Widget.Material3.Button.IconButton.Outlined"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            app:icon="@drawable/ic_camera"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/guideline_vertical"
+            app:layout_constraintTop_toBottomOf="@+id/guideline_horizontal2" />
+
+        <Button
+            android:id="@+id/btnGaleri"
+            style="@style/Widget.Material3.Button.IconButton.Outlined"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            app:icon="@drawable/ic_galeri"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/guideline_vertical"
+            app:layout_constraintTop_toBottomOf="@+id/btnCamera" />
+
+        <Button
+            android:id="@+id/btnTambah"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="32dp"
+            android:padding="18dp"
+            android:text="Tambah Menu"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/spinner_roleMenu" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline_horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintGuide_percent="0.4"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline_vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintGuide_percent="0.8"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline_horizontal2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintGuide_percent="0.6"
+            app:layout_constraintStart_toStartOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.core.widget.NestedScrollView>

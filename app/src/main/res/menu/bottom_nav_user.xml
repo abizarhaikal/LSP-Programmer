@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/userMenuFragment"
+        android:enabled="true"
+        android:icon="@drawable/ic_menu"
+        android:title="Menu" />
+    <item
+        android:id="@+id/strukFragment"
+        android:enabled="true"
+        android:icon="@drawable/ic_receipt"
+        android:title="Menu" />
+    <item
+        android:id="@+id/profileFragment"
+        android:enabled="true"
+        android:icon="@drawable/ic_person"
+        android:title="Menu" />
+
+</menu>
