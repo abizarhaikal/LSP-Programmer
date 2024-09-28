@@ -2,9 +2,9 @@
 <androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/addMenuActivity"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/addMenuActivity"
     tools:context=".ui.administrator.ui.AddMenuActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -22,6 +22,18 @@
             app:layout_constraintTop_toTopOf="parent"
             tools:src="@tools:sample/avatars" />
 
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/ivLottie"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toTopOf="@+id/guideline_horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:lottie_autoPlay="true"
+            app:lottie_loop="true"
+            app:lottie_rawRes="@raw/anim_empty" />
+
         <TextView
             android:id="@+id/tvTitleMenu"
             android:layout_width="wrap_content"
@@ -33,7 +45,7 @@
             android:textSize="18sp"
             app:layout_constraintBottom_toTopOf="@+id/et_namaMenu"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/ivImageDetail" />
+            app:layout_constraintTop_toBottomOf="@+id/guideline_horizontal" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/et_namaMenu"
@@ -145,9 +157,9 @@
             android:background="@drawable/spinner_background"
             android:entries="@array/menu_options"
             android:padding="18dp"
+            app:layout_constraintBottom_toTopOf="@+id/btnTambah"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintBottom_toTopOf="@+id/btnTambah"
             app:layout_constraintTop_toBottomOf="@+id/tv_kategoriMenu" />
 
         <Button
@@ -181,10 +193,27 @@
             android:layout_marginEnd="32dp"
             android:padding="18dp"
             android:text="Tambah Menu"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/btnDelete"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/spinner_roleMenu" />
+
+
+        <Button
+            android:id="@+id/btnDelete"
+            style="@style/Widget.Material3.Button.ElevatedButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="32dp"
+            android:padding="18dp"
+            android:text="Hapus Menu"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btnTambah" />
+
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline_horizontal"

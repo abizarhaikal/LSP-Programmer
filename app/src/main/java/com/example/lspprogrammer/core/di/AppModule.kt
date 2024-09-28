@@ -6,6 +6,7 @@ import com.example.lspprogrammer.viewmodel.LoginViewModel
 import com.example.lspprogrammer.viewmodel.OrderViewModel
 import com.example.lspprogrammer.viewmodel.PaymentViewModel
 import com.example.lspprogrammer.viewmodel.ProfileViewModel
+import com.example.lspprogrammer.viewmodel.ReportViewModel
 import com.example.lspprogrammer.viewmodel.StrukViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
@@ -20,4 +21,5 @@ val viewModelModule = module {
     viewModel { OrderViewModel(get()) }
     viewModel { StrukViewModel(get()) }
     viewModel { ProfileViewModel(get()) }
+    viewModel { ReportViewModel(get()) }
 }

@@ -8,10 +8,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import com.example.lspprogrammer.databinding.FragmentLoginBinding
 import com.example.lspprogrammer.ui.administrator.AdminActivity
 import com.example.lspprogrammer.ui.user.UserActivity
 import com.example.lspprogrammer.viewmodel.LoginViewModel
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -20,6 +22,7 @@ class LoginFragment : Fragment() {
     private lateinit var binding: FragmentLoginBinding
     private val firestore = FirebaseFirestore.getInstance()
     private val loginViewModel: LoginViewModel by viewModel()
+    private val firebaseAuth  = FirebaseAuth.getInstance()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -40,48 +43,46 @@ class LoginFragment : Fragment() {
                 startActivity(Intent(requireContext(), UserActivity::class.java))
             }
         }
+
+        binding.tvCreateAccount.setOnClickListener {
+            val action = LoginFragmentDirections.actionLoginFragmentToSignUpFragment()
+            findNavController().navigate(action)
+        }
     }
 
     private fun saveData() {
         val name = binding.edtName.text.toString()
         val email = binding.edtEmail.text.toString()
-        val role = binding.spinnerRole.selectedItem.toString()
         val phone = binding.edtPhone.text.toString()
+        val password = binding.edtPassword.text.toString()
 
-        if (name.isEmpty() || email.isEmpty() || role == "Pilih Role" || phone.isEmpty()) {
-            binding.edtName.error = "Nama tidak boleh kosong"
-            binding.edtEmail.error = "Email tidak boleh kosong"
-            binding.edtPhone.error = "Nomor Telepon tidak boleh kosong"
-            binding.spinnerRole.setSelection(0)
-        } else {
-            val userData = hashMapOf(
-                "name" to name,
-                "email" to email,
-                "phone" to phone,
-                "role" to role
-            )
-
-            val userRef = firestore.collection("data_user").document()
-            userRef.set(userData)
-                .addOnSuccessListener {
-                    saveUserToPreference(userRef.id)
-                    binding.edtName.text?.clear()
-                    binding.edtEmail.text?.clear()
-                    binding.edtPhone.text?.clear()
-                    binding.spinnerRole.setSelection(0)
-                    showToast("Data User Berhasil Dibuat")
-                    getUserRole(userRef.id)
-                }
-                .addOnFailureListener { e ->
-                    showToast("Data Error ${e.message}")
-                }
+        if (email.isEmpty()) {
+            binding.edtEmail.error = "Email harus diisi"
+            return
         }
+        if (password.isEmpty()) {
+            binding.edtPassword.error = "Password harus diisi"
+            return
+        }
+
+        firebaseAuth.signInWithEmailAndPassword(email,password)
+            .addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    val userId = firebaseAuth.currentUser?.uid ?: ""
+                    getUserRole(userId)
+                } else {
+                    Toast.makeText(requireContext(), "Login gagal", Toast.LENGTH_SHORT).show()
+                }
+            }
+            .addOnFailureListener { e ->
+                e.printStackTrace()
+                Toast.makeText(requireContext(), "Login gagal", Toast.LENGTH_SHORT).show()
+            }
     }
 
-    private fun saveUserToPreference(id: String) {
+    private fun saveUserToPreference(id: String, role: String) {
         val email = binding.edtEmail.text.toString()
         val name = binding.edtName.text.toString()
-        val role = binding.spinnerRole.selectedItem.toString()
         val isLogin = true
         loginViewModel.saveUser(email, id, name, isLogin, role)
     }
@@ -90,10 +91,11 @@ class LoginFragment : Fragment() {
         firestore.collection("data_user").document(userId)
             .get()
             .addOnSuccessListener { document ->
-                if (document != null) {
+                if (document.exists()) {
                     val role = document.getString("role")
                     role?.let {
                         navigationToLayoutBasedOnRole(it)
+                        saveUserToPreference(userId, role)
                     }
                 } else {
                     Log.d("GET DATA ROLE", "No such document")
@@ -105,16 +107,13 @@ class LoginFragment : Fragment() {
     }
 
     private fun navigationToLayoutBasedOnRole(role: String) {
-        Log.d("Role", "User Role: $role")
-        if (role == "Admin") {
-            val intent = Intent(activity, AdminActivity::class.java)
-            startActivity(intent)
-            activity?.finish()
-        } else if (role == "User") {
-            val intent = Intent(activity, UserActivity::class.java)
-            startActivity(intent)
-            activity?.finish()
+        val intent = when (role) {
+            "Admin" -> Intent(activity, AdminActivity::class.java)
+            "User" -> Intent(activity, UserActivity::class.java)
+            else -> return
         }
+        startActivity(intent)
+        activity?.finish()
     }
 
     private fun showToast(message: String) {

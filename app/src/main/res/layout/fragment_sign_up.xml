@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/loginFragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.login.LoginFragment">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/signUpFragment"
+    tools:context=".ui.login.SignUpFragment">
 
     <TextView
         android:id="@+id/tv_welcome"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/montserrat_medium"
-        android:text=" Selamat Datang Di Dapur Bahagia"
+        android:text="Daftar Terlebih Dahulu!"
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
@@ -103,6 +103,20 @@
             android:inputType="phone" />
     </com.google.android.material.textfield.TextInputLayout>
 
+    <androidx.appcompat.widget.AppCompatSpinner
+        android:id="@+id/spinner_role"
+        style="@style/Widget.AppCompat.Light.Spinner.DropDown.ActionBar"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="32dp"
+        android:background="@drawable/spinner_background"
+        android:entries="@array/role_options"
+        android:padding="18dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/et_phone" />
 
     <Button
         android:id="@+id/btn_login"
@@ -111,11 +125,11 @@
         android:layout_marginStart="32dp"
         android:layout_marginTop="32dp"
         android:layout_marginEnd="32dp"
-        android:text="Masuk"
+        android:text="Daftar"
         app:cornerRadius="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/et_phone" />
+        app:layout_constraintTop_toBottomOf="@id/spinner_role" />
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -132,7 +146,7 @@
             android:layout_marginTop="10dp"
             android:layout_gravity="center"
             android:fontFamily="@font/montserrat_medium"
-            android:text="Belum Punya Akun?"
+            android:text="Sudah Punya Akun?"
             android:textSize="16sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent" />
@@ -142,7 +156,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/montserrat_semibold"
-            android:text="Buat Akun"
+            android:text="Masuk"
             android:textSize="16sp"
             android:layout_marginTop="10dp"
             android:textStyle="bold"
@@ -160,4 +174,5 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintGuide_percent="0.2"
         app:layout_constraintStart_toStartOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

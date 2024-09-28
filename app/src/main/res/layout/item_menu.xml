@@ -6,7 +6,7 @@
     android:layout_height="wrap_content"
     android:layout_gravity="center"
     android:orientation="horizontal"
-    android:layout_margin="10dp"
+    android:layout_marginBottom="10dp"
     app:cardCornerRadius="10dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -30,7 +30,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
             android:fontFamily="@font/montserrat_medium"
-            android:textSize="18sp"
+            android:textSize="16sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@+id/tv_priceMenu"
             app:layout_constraintStart_toEndOf="@+id/iv_menu"
@@ -76,7 +76,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
             android:layout_marginTop="8dp"
-            app:chipStrokeColor="@color/white"
+            android:layout_marginEnd="10dp"
             app:chipStrokeWidth="1dp"
             app:closeIconEnabled="false"
             app:layout_constraintEnd_toEndOf="parent"

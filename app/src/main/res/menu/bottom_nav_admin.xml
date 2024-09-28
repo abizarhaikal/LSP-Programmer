@@ -4,11 +4,11 @@
     <item
         android:id="@+id/menuFragment"
         android:enabled="true"
-        android:icon="@drawable/ic_person"
+        android:icon="@drawable/ic_menu"
         android:title="Menu" />
     <item
         android:id="@+id/reportFragment"
         android:enabled="true"
-        android:icon="@drawable/ic_mail"
-        android:title="Menu" />
+        android:icon="@drawable/ic_receipt"
+        android:title="Report" />
 </menu>

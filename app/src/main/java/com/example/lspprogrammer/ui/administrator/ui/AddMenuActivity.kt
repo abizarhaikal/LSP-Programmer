@@ -1,15 +1,20 @@
 package com.example.lspprogrammer.ui.administrator.ui
 
+import android.Manifest
+import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.result.launch
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.bumptech.glide.Glide
@@ -45,17 +50,35 @@ class AddMenuActivity : AppCompatActivity() {
             100 -> {
                 clearFields()
                 binding.btnTambah.text = "Tambah Menu"
+                binding.btnDelete.visibility = View.GONE
             }
             200 -> {
                 menuId = intent.getStringExtra("menuId")
                 loadMenuData(menuId)
                 binding.btnTambah.text = "Perbarui Menu"
+                binding.btnDelete.visibility = View.VISIBLE
             }
         }
 
+        if (imageUri == null) {
+            binding.ivImageDetail.visibility = View.GONE
+            binding.ivLottie.visibility = View.VISIBLE
+        }
+        binding.btnDelete.setOnClickListener { deleteMenu() }
         binding.btnGaleri.setOnClickListener { startGaleri() }
-        binding.btnCamera.setOnClickListener { startCamera() }
+        binding.btnCamera.setOnClickListener { checkCameraPermissionAndStart() }
         binding.btnTambah.setOnClickListener { saveOrUpdateMenu() }
+    }
+
+    private fun deleteMenu() {
+        firestore.collection("menu").document(menuId!!).delete()
+            .addOnSuccessListener {
+                showToast("Menu berhasil dihapus")
+                finish()
+            }
+            .addOnFailureListener {
+                showToast("Gagal menghapus menu")
+            }
     }
 
     private fun clearFields() {
@@ -180,8 +203,16 @@ class AddMenuActivity : AppCompatActivity() {
             Glide.with(this)
                 .load(it)
                 .into(binding.ivImageDetail)
+            // Jika gambar ada, tampilkan gambar dan sembunyikan Lottie
+            binding.ivImageDetail.visibility = View.VISIBLE
+            binding.ivLottie.visibility = View.GONE
+        } ?: run {
+            // Jika url kosong, sembunyikan gambar dan tampilkan Lottie
+            binding.ivImageDetail.visibility = View.GONE
+            binding.ivLottie.visibility = View.VISIBLE
         }
     }
+
 
     private val launcherGaleri = registerForActivityResult(
         ActivityResultContracts.PickVisualMedia()
@@ -200,8 +231,16 @@ class AddMenuActivity : AppCompatActivity() {
             Glide.with(this)
                 .load(uri)
                 .into(binding.ivImageDetail)
+            // Jika gambar ada, tampilkan gambar dan sembunyikan Lottie
+            binding.ivImageDetail.visibility = View.VISIBLE
+            binding.ivLottie.visibility = View.GONE
+        } ?: run {
+            // Jika uri kosong, sembunyikan gambar dan tampilkan Lottie
+            binding.ivImageDetail.visibility = View.GONE
+            binding.ivLottie.visibility = View.VISIBLE
         }
     }
+
 
     private val launcherCamera = registerForActivityResult(
         ActivityResultContracts.TakePicturePreview()
@@ -218,8 +257,16 @@ class AddMenuActivity : AppCompatActivity() {
     private fun showImageFromBitmap() {
         imageBitmap?.let {
             binding.ivImageDetail.setImageBitmap(it)
+            // Jika bitmap ada, tampilkan gambar dan sembunyikan Lottie
+            binding.ivImageDetail.visibility = View.VISIBLE
+            binding.ivLottie.visibility = View.GONE
+        } ?: run {
+            // Jika bitmap kosong, sembunyikan gambar dan tampilkan Lottie
+            binding.ivImageDetail.visibility = View.GONE
+            binding.ivLottie.visibility = View.VISIBLE
         }
     }
+
 
     private fun startGaleri() {
         launcherGaleri.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly))
@@ -227,6 +274,14 @@ class AddMenuActivity : AppCompatActivity() {
 
     private fun startCamera() {
         launcherCamera.launch()
+    }
+
+    private fun checkCameraPermissionAndStart() {
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.CAMERA), 1001)
+        } else {
+            startCamera()
+        }
     }
 
     private fun getCategoryPosition(category: String?): Int {

@@ -1,5 +1,6 @@
 package com.example.lspprogrammer.ui.administrator.ui
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -7,11 +8,15 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.lspprogrammer.MainActivity
 import com.example.lspprogrammer.adapter.ReportAdapter
 import com.example.lspprogrammer.databinding.FragmentReportBinding
 import com.example.lspprogrammer.model.Laporan
 import com.example.lspprogrammer.model.LaporanItems
+import com.example.lspprogrammer.viewmodel.ReportViewModel
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.firebase.firestore.FirebaseFirestore
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class ReportFragment : Fragment() {
 
@@ -21,6 +26,7 @@ class ReportFragment : Fragment() {
     private val firestore = FirebaseFirestore.getInstance()
     private lateinit var adapter: ReportAdapter
 
+    private val reportViewModel: ReportViewModel by viewModel()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -43,6 +49,26 @@ class ReportFragment : Fragment() {
         binding.rvReport.layoutManager = LinearLayoutManager(requireContext())
         binding.rvReport.adapter = adapter
         getDataReport()
+
+        binding.btnLogout.setOnClickListener {
+            logout()
+        }
+    }
+
+    private fun logout() {
+        MaterialAlertDialogBuilder(requireContext()).apply {
+            setTitle("Logout")
+            setMessage("Apakah anda yakin ingin logout?")
+            setPositiveButton("Yes") { _, _ ->
+                reportViewModel.logout()
+                activity?.finish()
+                startActivity(Intent(requireContext(), MainActivity::class.java))
+            }
+            setNegativeButton("No") { dialog, _ ->
+                dialog.cancel()
+            }
+            show()
+        }
     }
 
     private fun getDataReport() {
